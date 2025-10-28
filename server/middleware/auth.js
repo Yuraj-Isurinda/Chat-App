@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken"
 import User from "../models/User.js"
-import { use } from "react"
 
 // protect rountes
 export const protectRoutes = async (req, res, next)=>{

@@ -6,15 +6,17 @@ const messageSchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
-  senderId: { 
+  receiverId: { 
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true
   },
   text: {
     type: String
+  },image:{
+    type: String
   },
-    seen: {
+  seen: {
         type : Boolean,
         default: false
   }

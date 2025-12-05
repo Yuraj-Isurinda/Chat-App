@@ -29,7 +29,7 @@ export const getUsersForSidebar = async (req, res)=>{
     } catch (error) {
         console.log(error.messages)
         res.json({
-            success: flase, 
+            success: false, 
             message: error.message})
     }
 }
@@ -57,7 +57,7 @@ export const getMessages = async(req,res) =>{
     } catch (error) {
         console.log(error.messages)
         res.json({
-            success: flase, 
+            success: false, 
             message: error.message})
     }
 }
@@ -71,7 +71,7 @@ export const markMassageAsSeen = async(req, res)=>{
     } catch (error) {
         console.log(error.messages)
         res.json({
-            success: flase, 
+            success: false, 
             message: error.message})
     }
 }
@@ -89,27 +89,28 @@ export const sendMessage = async (req, res) =>{
             imageUrl = uploadResponse.secure_url;
         }
 
-        const newMesaage = Message.create({
+        const newMessage = new Message({
             senderId,
             receiverId,
             text,
             image: imageUrl
         })
 
+        await newMessage.save()
+
         //Emit the new message to receiver socket
         const receiverSocketId = userSocketMap[receiverId]
 
         if(receiverSocketId){
-            io.to(receiverSocketId).emit("newMassage", newMesaage)
+            io.to(receiverSocketId).emit("newMessage", newMessage)
         }
         
-        res.json({success: true, newMesaage
-        })
+        res.json({success: true, newMessage})
 
     } catch (error) {
         console.log(error.messages)
         res.json({
-            success: flase, 
+            success: false, 
             message: error.message})
     }
 }

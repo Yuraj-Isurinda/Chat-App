@@ -3,10 +3,10 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        requried: true,
+        required: true,
         unique: true
     },
-    fullname: {
+    fullName: {
         type : String,
         required: true
     },
@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
 
 },
 {
-    timeseries: true
+    timestamps: true
 }    
 )
 
